@@ -28,62 +28,65 @@ export default function AlbumPage({ onAddToCart }) {
   const releaseYear = album.releaseDate ? new Date(album.releaseDate).getFullYear() : '—';
 
   return (
-    <div className="card border-0 shadow-sm p-3 p-md-4 detail-card">
-      <div className="row g-4 align-items-start">
-        <div className="col-md-4">
-          <img src={image} className="img-fluid rounded-4 w-100" alt={album.collectionName} />
+    <div className="detail-shell">
+      <div className="detail-hero">
+        <div className="detail-cover-wrap">
+          <img src={image} alt={album.collectionName} className="detail-cover" />
         </div>
-        <div className="col-md-8">
-          <p className="eyebrow mb-2">Album spotlight</p>
-          <h2 className="fw-bold">{album.collectionName}</h2>
-          <p className="text-muted mb-2">{album.artistName}</p>
-          <p className="fw-semibold fs-5 mb-3">€{album.collectionPrice || 9.99}</p>
+        <div className="detail-hero-content">
+          <p className="eyebrow mb-2">Album</p>
+          <h1 className="detail-title">{album.collectionName}</h1>
+          <p className="detail-subtitle">{album.artistName}</p>
           <div className="meta-row mb-3">
-            <span className="meta-pill">{tracks.length} tracks</span>
-            <span className="meta-pill">Released {releaseYear}</span>
+            <span className="meta-pill">{tracks.length} songs</span>
+            <span className="meta-pill">{releaseYear}</span>
             <span className="meta-pill">{album.primaryGenreName || 'Music'}</span>
           </div>
+          <p className="detail-price">€{album.collectionPrice || 9.99}</p>
           <div className="d-flex gap-2 flex-wrap mt-3">
             <button className="btn btn-primary" onClick={() => onAddToCart(album)}>
-              Add to cart
+              <i className="bi bi-cart-plus me-1" /> Add to cart
             </button>
             <a href={album.collectionViewUrl} target="_blank" rel="noreferrer" className="btn btn-outline-secondary">
-              Open in iTunes
+              <i className="bi bi-box-arrow-up-right me-1" /> Open in iTunes
             </a>
             <Link to="/" className="btn btn-outline-secondary">
-              Back home
+              <i className="bi bi-arrow-left me-1" /> Back home
             </Link>
           </div>
-
-          <div className="track-list mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-2">
-              <h5 className="fw-bold mb-0">Track list</h5>
-              <span className="text-muted small">Tap a track to preview it</span>
-            </div>
-            {tracks.length === 0 ? (
-              <div className="track-item">No tracks available right now.</div>
-            ) : (
-              tracks.map((track) => (
-                <div className="track-item" key={track.trackId || track.trackName}>
-                  <div>
-                    <div className="fw-semibold">{track.trackNumber}. {track.trackName}</div>
-                    <div className="text-muted small">{track.artistName || album.artistName}</div>
-                  </div>
-                  <div className="track-meta">
-                    {track.previewUrl ? (
-                      <audio controls preload="none" className="audio-preview">
-                        <source src={track.previewUrl} type="audio/mpeg" />
-                      </audio>
-                    ) : (
-                      <span className="text-muted small">Preview unavailable</span>
-                    )}
-                    <span className="text-muted small">{track.trackTimeMillis ? `${Math.floor(track.trackTimeMillis / 60000)}:${String(Math.floor((track.trackTimeMillis % 60000) / 1000)).padStart(2, '0')}` : ''}</span>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
         </div>
+      </div>
+
+      <div className="track-list mt-4">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="fw-bold mb-0">Track list</h4>
+          <span className="text-muted small">Preview available for select tracks</span>
+        </div>
+        {tracks.length === 0 ? (
+          <div className="track-item">No tracks available right now.</div>
+        ) : (
+          tracks.map((track) => (
+            <div className="track-item" key={track.trackId || track.trackName}>
+              <div className="d-flex align-items-center gap-3">
+                <div className="track-number">{track.trackNumber}</div>
+                <div>
+                  <div className="fw-semibold">{track.trackName}</div>
+                  <div className="text-muted small">{track.artistName || album.artistName}</div>
+                </div>
+              </div>
+              <div className="track-meta">
+                {track.previewUrl ? (
+                  <audio controls preload="none" className="audio-preview">
+                    <source src={track.previewUrl} type="audio/mpeg" />
+                  </audio>
+                ) : (
+                  <span className="text-muted small">Preview unavailable</span>
+                )}
+                <span className="text-muted small">{track.trackTimeMillis ? `${Math.floor(track.trackTimeMillis / 60000)}:${String(Math.floor((track.trackTimeMillis % 60000) / 1000)).padStart(2, '0')}` : ''}</span>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

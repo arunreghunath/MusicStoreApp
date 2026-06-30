@@ -26,27 +26,32 @@ export default function CartPage({ cart, onAddToCart, onRemoveFromCart, onClearC
             </Link>
           </div>
         ) : (
-          cart.map((item) => (
-            <div className="cart-item mb-3" key={item.collectionId}>
-              <div className="d-flex align-items-center gap-3">
-                <img src={item.artworkUrl100?.replace('100x100', '100x100') || ''} alt={item.collectionName} />
-                <div className="flex-grow-1">
-                  <h5 className="mb-1">{item.collectionName}</h5>
-                  <p className="text-muted mb-1">{item.artistName}</p>
-                  <p className="fw-semibold mb-0">€{((item.collectionPrice || 9.99) * item.qty).toFixed(2)}</p>
-                </div>
-                <div className="d-flex align-items-center gap-2">
-                  <button className="btn btn-outline-secondary btn-sm" onClick={() => onRemoveFromCart(item.collectionId)}>
-                    −
-                  </button>
-                  <span className="fw-bold">{item.qty}</span>
-                  <button className="btn btn-outline-secondary btn-sm" onClick={() => onAddToCart(item)}>
-                    +
-                  </button>
+          cart.map((item) => {
+            const image = item.artworkUrl100?.replace('100x100', '300x300') || '';
+            return (
+              <div className="cart-item mb-3" key={item.collectionId}>
+                <div className="d-flex align-items-center gap-3">
+                  <div className="cart-item-image-wrap">
+                    <img src={image} alt={item.collectionName} />
+                  </div>
+                  <div className="flex-grow-1">
+                    <h5 className="mb-1">{item.collectionName}</h5>
+                    <p className="text-muted mb-1">{item.artistName}</p>
+                    <p className="fw-semibold mb-0">€{((item.collectionPrice || 9.99) * item.qty).toFixed(2)}</p>
+                  </div>
+                  <div className="d-flex align-items-center gap-2">
+                    <button className="btn btn-outline-secondary btn-sm" onClick={() => onRemoveFromCart(item.collectionId)}>
+                      −
+                    </button>
+                    <span className="fw-bold">{item.qty}</span>
+                    <button className="btn btn-outline-secondary btn-sm" onClick={() => onAddToCart(item)}>
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 

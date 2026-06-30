@@ -6,8 +6,10 @@ export default function Footer() {
           <h6 className="fw-bold mb-1">Music Store</h6>
           <p className="text-muted small mb-0">Discover albums, build your cart, and enjoy your favorite sounds.</p>
         </div>
-        <div className="text-muted small">
-          © {new Date().getFullYear()} Music Store. All rights reserved.
+        <div className="text-muted small d-flex align-items-center gap-2">
+          <span><i className="bi bi-shield-check me-1" /> Secure checkout</span>
+          <span>•</span>
+          <span>© {new Date().getFullYear()} Music Store</span>
         </div>
       </div>
     </footer>

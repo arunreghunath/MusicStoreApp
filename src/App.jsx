@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import AlbumPage from './pages/AlbumPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 
 const ITUNES_API = 'https://itunes.apple.com/search?term=music&entity=album&limit=12';
 
@@ -79,6 +80,7 @@ export default function App() {
         <Route path="/album/:id" element={<AlbumPage onAddToCart={addToCart} />} />
         <Route path="/cart" element={<CartPage cart={cart} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} onClearCart={clearCart} />} />
         <Route path="/checkout" element={<CheckoutPage cart={cart} onClearCart={clearCart} />} />
+        <Route path="/checkout/success" element={<CheckoutSuccessPage />} />
       </Routes>
 
       <CartDrawer

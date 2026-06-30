@@ -10,14 +10,18 @@ export default function CartDrawer({ cart, isOpen, onClose, onAddToCart, onRemov
           <h4 className="fw-bold mb-1">Your cart</h4>
           <p className="text-muted mb-0">{cart.reduce((sum, item) => sum + item.qty, 0)} items selected</p>
         </div>
-        <button className="btn btn-close-custom" onClick={onClose}>✕</button>
+        <button className="btn btn-close-custom" onClick={onClose} aria-label="Close cart">
+          <i className="bi bi-x-lg" />
+        </button>
       </div>
 
       <div className="drawer-body">
         {cart.length === 0 ? (
           <div className="empty-state compact">
             <p className="mb-3">Your cart is empty.</p>
-            <button className="btn btn-primary" onClick={onClose}>Continue shopping</button>
+            <button className="btn btn-primary" onClick={onClose}>
+              <i className="bi bi-arrow-left me-1" /> Continue shopping
+            </button>
           </div>
         ) : (
           cart.map((item) => (
@@ -48,10 +52,10 @@ export default function CartDrawer({ cart, isOpen, onClose, onAddToCart, onRemov
         </div>
         <div className="d-grid gap-2">
           <Link to="/cart" className="btn btn-primary" onClick={onClose}>
-            View cart
+            <i className="bi bi-bag me-1" /> View cart
           </Link>
           <Link to="/checkout" className="btn btn-outline-secondary" onClick={onClose}>
-            Checkout
+            <i className="bi bi-credit-card me-1" /> Checkout
           </Link>
           {cart.length > 0 && (
             <button className="btn btn-link text-muted p-0" onClick={onClearCart}>

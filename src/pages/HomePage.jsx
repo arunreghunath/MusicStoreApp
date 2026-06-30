@@ -13,38 +13,31 @@ export default function HomePage({ albums, loading, searchTerm, setSearchTerm, o
 
   return (
     <div>
-      <section className="hero-card">
+      <div className="hero-card">
         <div>
-          <p className="eyebrow">Fresh picks for every mood</p>
-          <h1 className="display-6 fw-bold">Find your next favorite album</h1>
-          <p className="text-muted mb-0">Search the catalog, build your wishlist, and check out in seconds with a streamlined experience.</p>
+          <h2>Find an album</h2>
+          <p>Search for albums and add them to your cart.</p>
         </div>
         <div className="hero-actions">
-          <div className="hero-pill">Fast checkout</div>
-          <div className="hero-pill">Curated music</div>
+          <span className="hero-pill">Fast checkout</span>
+          <span className="hero-pill">Music</span>
         </div>
-      </section>
+      </div>
 
       <div className="search-row">
-        <div className="input-group search-box">
-          <span className="input-group-text"><i className="bi bi-search" /></span>
-          <input
-            className="form-control"
-            placeholder="Search by album or artist"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        <input
+          className="form-control search-box"
+          placeholder="Search album or artist"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <div className="results-pill">{filteredAlbums.length} albums</div>
       </div>
 
       {loading ? (
         <div className="empty-state">Loading albums...</div>
       ) : filteredAlbums.length === 0 ? (
-        <div className="empty-state">
-          <h5 className="fw-semibold">No albums match that search yet.</h5>
-          <p className="text-muted mb-0">Try a different artist or album name to discover something new.</p>
-        </div>
+        <div className="empty-state">No results yet.</div>
       ) : (
         <div className="row g-4">
           {filteredAlbums.map((album) => (

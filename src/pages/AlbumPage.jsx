@@ -24,7 +24,7 @@ export default function AlbumPage({ onAddToCart }) {
   if (loading) return <div className="empty-state">Loading album details...</div>;
   if (!album) return <div className="empty-state">Album not found.</div>;
 
-  const image = album.artworkUrl100?.replace('100x100', '300x300') || '';
+  const image = album.artworkUrl600 || album.artworkUrl100?.replace('100x100', '600x600') || album.artworkUrl100 || '';
   const releaseYear = album.releaseDate ? new Date(album.releaseDate).getFullYear() : '—';
 
   return (

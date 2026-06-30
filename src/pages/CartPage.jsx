@@ -27,7 +27,7 @@ export default function CartPage({ cart, onAddToCart, onRemoveFromCart, onClearC
           </div>
         ) : (
           cart.map((item) => {
-            const image = item.artworkUrl100?.replace('100x100', '300x300') || '';
+            const image = item.artworkUrl600 || item.artworkUrl100?.replace('100x100', '600x600') || item.artworkUrl100 || '';
             return (
               <div className="cart-item mb-3" key={item.collectionId}>
                 <div className="d-flex align-items-center gap-3">

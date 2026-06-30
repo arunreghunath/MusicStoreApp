@@ -9,13 +9,12 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 
-const ITUNES_API = 'https://itunes.apple.com/search?term=music&entity=album&limit=12';
-
 const mapAlbum = (item) => ({
   collectionId: item.collectionId,
   collectionName: item.collectionName,
   artistName: item.artistName,
   artworkUrl100: item.artworkUrl100,
+  artworkUrl600: item.artworkUrl600 || item.artworkUrl100?.replace('100x100', '600x600') || item.artworkUrl100,
   collectionPrice: item.collectionPrice,
   collectionViewUrl: item.collectionViewUrl,
   primaryGenreName: item.primaryGenreName,
@@ -46,27 +45,22 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.qty, 0), [cart]);
+  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
   const addToCart = (album) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.collectionId === album.collectionId);
-      if (existing) {
-        return prev.map((item) => (item.collectionId === album.collectionId ? { ...item, qty: item.qty + 1 } : item));
-      }
-      return [...prev, { ...album, qty: 1 }];
-    });
+    const existing = cart.find((item) => item.collectionId === album.collectionId);
+    if (existing) {
+      setCart(
+        cart.map((item) => (item.collectionId === album.collectionId ? { ...item, qty: item.qty + 1 } : item))
+      );
+    } else {
+      setCart([...cart, { ...album, qty: 1 }]);
+    }
     setIsCartOpen(true);
   };
 
   const removeFromCart = (id) => {
-    setCart((prev) =>
-      prev.flatMap((item) => {
-        if (item.collectionId !== id) return [item];
-        if (item.qty > 1) return [{ ...item, qty: item.qty - 1 }];
-        return [];
-      })
-    );
+    setCart(cart.filter((item) => item.collectionId !== id));
   };
 
   const clearCart = () => setCart([]);

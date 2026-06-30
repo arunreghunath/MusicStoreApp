@@ -25,12 +25,17 @@ export default function HomePage({ albums, loading, searchTerm, setSearchTerm, o
       </div>
 
       <div className="search-row">
-        <input
-          className="form-control search-box"
-          placeholder="Search album or artist"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <div className="input-group search-box">
+          <span className="input-group-text">
+            <i className="bi bi-search" />
+          </span>
+          <input
+            className="form-control"
+            placeholder="Search album or artist"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         <div className="results-pill">{filteredAlbums.length} albums</div>
       </div>
 

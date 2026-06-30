@@ -69,9 +69,9 @@ body {
 
 .album-card img,
 .cart-item img {
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
-  height: 220px;
+  height: 180px;
   display: block;
   image-rendering: auto;
   transform: translateZ(0);
@@ -81,7 +81,7 @@ body {
 .album-card .card-img-top,
 .detail-card img {
   aspect-ratio: 1 / 1;
-  object-fit: contain;
+  object-fit: cover;
   background: #f3f4f6;
   image-rendering: auto;
 }
@@ -96,6 +96,10 @@ body {
   overflow: hidden;
   transition: none;
   min-height: 100%;
+}
+
+.album-card .card-body {
+  padding: 0.85rem 0.9rem 0.9rem;
 }
 
 .image-wrap {
@@ -198,11 +202,17 @@ body {
   gap: 1rem;
   margin-bottom: 1.25rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .search-box {
   flex: 1;
   min-width: 280px;
+}
+
+.input-group-text {
+  background: #ffffff;
+  border-color: #d9d9d9;
 }
 
 .empty-state {
